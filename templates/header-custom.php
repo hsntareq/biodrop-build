@@ -7,4 +7,5 @@
 	<title><?php wp_title(); ?></title>
 	<?php wp_head(); ?>
   </head>
-  <body>
+
+  <body <?php body_class(is_admin_bar_showing()?'is_admin_bar':'') ?>>
