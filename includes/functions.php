@@ -13,12 +13,11 @@ add_action( 'wp_ajax_edit_user_cards', 'edit_user_cards' );
 add_filter( 'wp_title', 'biodrop_page_title', 10000, 2 );
 add_action( 'init', 'sponsor_admin_access', 100 );
 add_filter( 'status_header', 'bs_status_header_function', 10, 2 );
-add_action( 'init', 'sponsor_no_admin_access', 100 );
+// add_action( 'init', 'sponsor_no_admin_access', 100 );
 
 
 function sponsor_no_admin_access() {
 	if ( is_404() ) {
-		die;
 		wp_safe_redirect( home_url( 'bs-login' ) );
 	}
 
@@ -26,6 +25,7 @@ function sponsor_no_admin_access() {
 	if ( ! is_user_logged_in() ) {
 		wp_redirect( site_url( 'bs-login' ) );
 	}
+	die;
 	$allowed_urls = array( 'bs-login', 'bs-register' );
 	if ( ! in_array( $wp->request, $allowed_urls ) ) {
 		wp_redirect( site_url( 'bs-login' ) );

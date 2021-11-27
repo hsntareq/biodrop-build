@@ -3448,7 +3448,6 @@ document.addEventListener('readystatechange', event => {
     setTimeout(() => {
       let page = new URL(window.location);
       page = new URLSearchParams(page.search);
-      console.log(page.get('page'));
       page = page.get('page') && page.get('page').replace('/', '');
 
       if (page === 'settings') {
@@ -3584,7 +3583,6 @@ if (null !== creditCardForm) {
 
         if ('exist' == getData.status) {
           (0,_lib__WEBPACK_IMPORTED_MODULE_1__.toastTrigger)('warning', 'This Card Number already exist!');
-          console.log(getData);
         }
 
         loadUserCards();
@@ -3602,7 +3600,6 @@ const ccDeleteFunction = () => {
   const ccDeleteBtn = document.querySelectorAll('.cc_delete_btn');
   ccDeleteBtn.forEach(item => {
     item.onclick = e => {
-      console.log(item);
       var formData = new FormData();
       formData.append("action", "delete_user_cards");
       formData.append("cc_id", item.dataset.id);
@@ -3655,7 +3652,6 @@ const ccEditFunction = () => {
 const loadSingleCard = getData => {
   let editData = getData.data.shift();
   creditCardForm.dataset.card_id = editData.id;
-  console.log(editData);
   let cardData = [];
   cardData['card_number'] = editData.card_number;
   cardData['expiration_date'] = editData.card_expiration_month + '/' + editData.card_expiration_year;
