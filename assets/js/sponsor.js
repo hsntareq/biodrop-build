@@ -3230,12 +3230,17 @@ if (protocolForm && createProtocol) {
           setTimeout(() => {
             toggleClassSpinner(createProtocol);
           }, 500);
+          console.log(getData);
 
-          if (getData.success == false) {
-            (0,_lib__WEBPACK_IMPORTED_MODULE_0__.toastTrigger)("error", "This protocol already exists");
+          if (getData.status == 'exists') {
+            (0,_lib__WEBPACK_IMPORTED_MODULE_0__.toastTrigger)(getData.message, `Protocol "${getData.title}" already exists`);
             return false;
-          } else {
-            (0,_lib__WEBPACK_IMPORTED_MODULE_0__.toastTrigger)("success", "The protocol created successfully");
+          } else if (getData.status == 'missing') {
+            console.log(getData);
+            (0,_lib__WEBPACK_IMPORTED_MODULE_0__.toastTrigger)(getData.message, Object.values(getData.fields) + " field(s) can not leave empty");
+            return false;
+          } else if (getData.status == 'success') {
+            (0,_lib__WEBPACK_IMPORTED_MODULE_0__.toastTrigger)(getData.message, "The protocol created successfully");
           }
 
           const url = new URL(window.location);
@@ -3244,8 +3249,7 @@ if (protocolForm && createProtocol) {
             page: page
           });
           const pushUrl = `${url.origin + url.pathname}?${params.toString()}`;
-          setTimeout(() => {
-            window.location = pushUrl;
+          setTimeout(() => {// window.location = pushUrl;
           }, 1000);
         }
       };
