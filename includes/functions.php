@@ -60,14 +60,9 @@ function sponsor_no_admin_access() {
 	global $wp;
 	global $current_user;
 	$page_slug = trim( $_SERVER['REQUEST_URI'], '/' );
-	if ( ! is_user_logged_in() ) {
-		if ( 'bs-admin' == $page_slug ) {
-			wp_safe_redirect( site_url( 'bs-login' ) );
-			exit;
-		}
-		if ( 'bs-login' !== $page_slug ) {
-			wp_safe_redirect( site_url( 'bs-login' ) );
-		}
+	if ( ! is_user_logged_in() && 'bs-login' != $page_slug ) {
+		wp_safe_redirect( site_url( 'bs-login' ) );
+		exit;
 	} else {
 		$allowed_roles = array( 'sponsor' );
 		$role_exists   = array_intersect( $allowed_roles, $current_user->roles );
